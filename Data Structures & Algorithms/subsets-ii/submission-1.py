@@ -1,0 +1,62 @@
+
+# # Brute Force Approach
+# class Solution:
+#     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+#         nums.sort()
+#         comb = set()
+#         def dfs(i, subset):
+#             if i >= len(nums):
+#                 comb.add(tuple(subset))
+#                 return 
+
+            
+#             # with index i
+#             subset.append(nums[i])
+#             dfs(i+1, subset)
+
+#             # without index i
+#             subset.pop()
+#             dfs(i+1, subset)
+#         dfs(0,[])
+#         return [list(s) for s in comb]
+
+
+
+
+
+# Backtracking
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        comb = []
+        def dfs(i, subset):
+            if i >= len(nums):
+                comb.append(subset.copy())
+                return 
+
+            
+            # with index i
+            subset.append(nums[i])
+            dfs(i+1, subset)
+
+            # without index i
+            subset.pop()
+            while i + 1 < len(nums) and nums[i] == nums[i+1]:
+                i += 1
+            dfs(i+1, subset)
+        dfs(0,[])
+        return comb
+
+
+
+
+
+
+
+
+# nums = [1, 1, 2]
+
+
+# []--> [1], -->[1, 1] --> [1, ]
+
+        
